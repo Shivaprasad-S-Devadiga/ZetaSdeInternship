@@ -3,23 +3,27 @@ package com.zeta.bank;
 import java.util.logging.Logger;
 
 public class BankAccount {
+    String name;
+    int age ;
+    int income;
     private  float balance;
 
     Logger log = Logger.getLogger("Bank account");
 
-    public BankAccount(float balance) {
-        if(balance<0) {
-           log.severe("Initial Balance should greater than 0.00");
-           return;
-        }
+    public BankAccount(String name, int age, int income, float balance) {
+        this.name = name;
+        this.age = age;
+        this.income = income;
         this.balance = balance;
     }
 
+
     public synchronized float getBalance() {
+
         return balance;
     }
 
-    public synchronized boolean withdraw(int amount) {
+    public  synchronized  boolean withdraw(int amount) {
         System.out.println(Thread.currentThread().getName() + " checking balance...");
 
         if (balance >= amount) {
@@ -36,5 +40,6 @@ public class BankAccount {
 
         balance += amount;
     }
+
 
 }
