@@ -74,7 +74,7 @@ public class Main {
                 throw new IllegalArgumentException("Number should be greater than zero");
             }
         };
-        
+        validate3.validateIfNegative(Balance);
 
         BankAccount account = new BankAccount("SHIV" , 19 , 200000, Balance);
         LoanAccount loan;
@@ -109,6 +109,7 @@ public class Main {
                                 throw new IllegalArgumentException("Number should be greater than zero");
                             }
                         };
+                        validate.validateIfNegative(Balance);
                         //executor.execute(new DepositTask(account, dep));
                         executor.execute(()->account.deposit(100));
                         break;
@@ -122,16 +123,19 @@ public class Main {
                                throw new IllegalArgumentException("Number should be greater than zero");
                           }
                         };
+                        validate2.validateIfNegative(Balance);
                         //executor.execute(new WithdrawTask(account, w));
                         executor.execute(()->account.withdraw(100));
                         break;
 
                     case 4:
-                        System.out.println("Simulating two parallel withdrawals of ₹" + (initialBalance / 2));
+                        //System.out.println("Simulating two parallel withdrawals of ₹" + (Balance / 2));
 //                        executor.execute(new WithdrawTask(account, initialBalance / 2));
 //                        executor.execute(new WithdrawTask(account, initialBalance / 2));
-                          executor.execute(()->account.withdraw(Balance / 2));
-                          executor.execute(()->account.withdraw(Balance / 2));
+                        int finalBalance = Balance;
+                        executor.execute(()->account.withdraw(finalBalance / 2));
+                        int finalBalance1 = Balance;
+                        executor.execute(()->account.withdraw(finalBalance1 / 2));
                         break;
 
                     case 5:

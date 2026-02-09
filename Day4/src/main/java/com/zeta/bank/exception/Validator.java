@@ -7,6 +7,6 @@ public interface Validator{
 //        }
 //    }
 
-    void validateIfNegative(int amount);
+    void validateIfNegative(int Balance);
 
 }
