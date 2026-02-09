@@ -10,8 +10,8 @@ public class Main {
         BankAccount account  = new BankAccount("shiv", 19, 200, 1000);
         Future future = executorService.submit(new DepositTask(account, 500));
         Future future1 = executorService.submit(new DepositTask(account , 400));
-//        System.out.println(future.get());
-//        System.out.println(future1.get());
-        
+        System.out.println(future.get());
+        System.out.println(future1.get());
+
     }
 }
