@@ -68,15 +68,15 @@ public class Main {
 
 
         System.out.print("Enter initial bank balance: ₹");
-        int Balance = sc.nextInt();
+        int initialBalance = sc.nextInt();
         Validator validate3 = (a)->{
             if(a < 0) {
                 throw new IllegalArgumentException("Number should be greater than zero");
             }
         };
-        validate3.validateIfNegative(Balance);
+        validate3.validateIfNegative(initialBalance);
 
-        BankAccount account = new BankAccount("SHIV" , 19 , 200000, Balance);
+        BankAccount account = new BankAccount("SHIV" , 19 , 200000, initialBalance);
         LoanAccount loan;
 
          //Thread pool with 3 worker threads
@@ -92,7 +92,15 @@ public class Main {
             System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
-            int choice = sc.nextInt();
+            //Scanner sc = new Scanner(System.in);
+            int choice = 0;
+            if (sc.hasNextInt()) {
+                choice = sc.nextInt();
+                System.out.println("You entered: " + choice);
+            } else {
+                System.out.println("Invalid input! Please enter a number.");
+            }
+
 
             try{
                 switch (choice) {
@@ -103,27 +111,27 @@ public class Main {
 
                     case 2:
                         System.out.print("Enter amount to deposit: ₹");
-                        Balance = sc.nextInt();
+                        int deposit = sc.nextInt();
                         Validator validate = (a)->{
                             if(a < 0) {
                                 throw new IllegalArgumentException("Number should be greater than zero");
                             }
                         };
-                        validate.validateIfNegative(Balance);
+                        validate.validateIfNegative(deposit);
                         //executor.execute(new DepositTask(account, dep));
                         executor.execute(()->account.deposit(100));
                         break;
 
                     case 3:
                         System.out.print("Enter amount to withdraw: ₹");
-                        Balance = sc.nextInt();
+                        int withdraw = sc.nextInt();
                         //Validator.validateIfNegative(w);
                         Validator validate2 = (a)->{
                             if(a < 0) {
                                throw new IllegalArgumentException("Number should be greater than zero");
                           }
                         };
-                        validate2.validateIfNegative(Balance);
+                        validate2.validateIfNegative(withdraw);
                         //executor.execute(new WithdrawTask(account, w));
                         executor.execute(()->account.withdraw(100));
                         break;
@@ -131,11 +139,10 @@ public class Main {
                     case 4:
                         //System.out.println("Simulating two parallel withdrawals of ₹" + (Balance / 2));
 //                        executor.execute(new WithdrawTask(account, initialBalance / 2));
-//                        executor.execute(new WithdrawTask(account, initialBalance / 2));
-                        int finalBalance = Balance;
-                        executor.execute(()->account.withdraw(finalBalance / 2));
-                        int finalBalance1 = Balance;
-                        executor.execute(()->account.withdraw(finalBalance1 / 2));
+//                        executor.execute(new WithdrawTask(account, initialBalance / 2))
+                        executor.execute(()->account.withdraw(initialBalance / 2));
+
+                        executor.execute(()->account.withdraw(initialBalance / 2));
                         break;
 
                     case 5:
