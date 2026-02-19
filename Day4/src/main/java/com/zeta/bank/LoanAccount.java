@@ -11,7 +11,7 @@ public class LoanAccount {
         this.tenure = tenure;
     }
     public static synchronized  boolean loanSanction(int loanAmount, int tenure, BankAccount account) {
-       if(account.getBalance() >= 100000 && account.income > 500000 && account.age > 18)
+       if(account.getBalance() >= 100000 )
            return true;
 
        return false;
