@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Task Manager</title>
-  <link rel="stylesheet" href="style.css" />
+    <title>Advanced Task Manager</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Task Manager</h2>
-  <input type="text" placeholder="Enter task" id="taskInput" />
-  <button id="addBtn">Add Task</button>
-
-  <ul id="taskList"></ul>
-
-  <script src="script.js"></script>
+ 
+<h2>Advanced Task Manager</h2>
+<div class="controls">
+<input type="text" id="taskInput" placeholder="Enter task">
+<input type="date" id="dueDate">
+<button id="addBtn">Add Task</button>
+</div>
+ 
+<div class="filters">
+    <button onclick="setFilter('all')">All</button>
+    <button onclick="setFilter('completed')">Completed</button>
+    <button onclick="setFilter('pending')">Pending</button>
+</div>
+ 
+<ul id="taskList"></ul>
+ 
+<script src="script.js"></script>
 </body>
 </html>

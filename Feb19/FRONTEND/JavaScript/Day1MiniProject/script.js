@@ -1,58 +1,153 @@
 const taskInput = document.getElementById("taskInput");
+const dueDateInput = document.getElementById("dueDate");
 const addBtn = document.getElementById("addBtn");
 const taskList = document.getElementById("taskList");
-
+ 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
+let currentFilter = "all";
+ 
 function saveTasks() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
-
-function renderTasks() {
-  taskList.innerHTML = "";
-
-  tasks.forEach((task, index) => {
-    const li = document.createElement("li");
-    li.textContent = task.text;
-
-    if (task.completed) li.classList.add("completed");
-
-    // Toggle complete
-    li.addEventListener("click", () => {
-      tasks[index].completed = !tasks[index].completed;
-      saveTasks();
-      renderTasks();
-    });
-
-    // Delete button
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Delete";
-
-    deleteBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      tasks.splice(index, 1);
-      saveTasks();
-      renderTasks();
-    });
-
-    li.appendChild(deleteBtn);
-    taskList.appendChild(li);
-  });
-}
-
+ 
 addBtn.addEventListener("click", () => {
-  const text = taskInput.value.trim();
-
-  if (text === "") {
-    alert("Task cannot be empty");
-    return;
-  }
-
-  tasks.push({ text, completed: false });
-
-  taskInput.value = "";
-  saveTasks();
-  renderTasks();
+ 
+    const text = taskInput.value.trim();
+    const dueDate = dueDateInput.value;
+ 
+    if (!text) {
+        alert("Task cannot be empty");
+        return;
+    }
+ 
+    tasks.push({
+        id: Date.now(),
+        text,
+        dueDate,
+        completed: false
+    });
+ 
+    taskInput.value = "";
+    dueDateInput.value = "";
+ 
+    saveTasks();
+    renderTasks();
 });
-
+ 
+function editTask(id) {
+ 
+    const newText = prompt("Edit task:");
+    if (!newText) return;
+ 
+    const task = tasks.find(t => t.id === id);
+    task.text = newText;
+ 
+    saveTasks();
+    renderTasks();
+}
+ 
+function deleteTask(id) {
+    tasks = tasks.filter(task => task.id !== id);
+    saveTasks();
+    renderTasks();
+}
+ 
+function toggleComplete(id) {
+    const task = tasks.find(t => t.id === id);
+    task.completed = !task.completed;
+    saveTasks();
+    renderTasks();
+}
+ 
+function setFilter(filter) {
+    currentFilter = filter;
+    renderTasks();
+}
+ 
+function renderTasks() {
+ 
+    taskList.innerHTML = "";
+ 
+    let filteredTasks = tasks;
+ 
+    if (currentFilter === "completed") {
+        filteredTasks = tasks.filter(t => t.completed);
+    } else if (currentFilter === "pending") {
+        filteredTasks = tasks.filter(t => !t.completed);
+    }
+ 
+    filteredTasks.forEach(task => {
+ 
+        const li = document.createElement("li");
+        li.draggable = true;
+        li.dataset.id = task.id;
+ 
+        if (task.completed) {
+            li.classList.add("completed");
+        }
+ 
+        li.innerHTML = `
+            ${task.text}
+            <small>Due: ${task.dueDate || "No date"}</small>
+            <button onclick="toggleComplete(${task.id})">&#10004;</button>
+            <button onclick="editTask(${task.id})">Edit</button>
+            <button onclick="deleteTask(${task.id})">Delete</button>
+        `;
+ 
+        taskList.appendChild(li);
+    });
+ 
+    enableDragDrop();
+}
+ 
+function enableDragDrop() {
+ 
+    const items = document.querySelectorAll("#taskList li");
+ 
+    items.forEach(item => {
+ 
+        item.addEventListener("dragstart", () => {
+            item.classList.add("dragging");
+        });
+ 
+        item.addEventListener("dragend", () => {
+            item.classList.remove("dragging");
+            updateTaskOrder();
+        });
+    });
+ 
+    taskList.addEventListener("dragover", e => {
+        e.preventDefault();
+        const dragging = document.querySelector(".dragging");
+        const afterElement = getDragAfterElement(taskList, e.clientY);
+ 
+        if (afterElement == null) {
+            taskList.appendChild(dragging);
+        } else {
+            taskList.insertBefore(dragging, afterElement);
+        }
+    });
+}
+ 
+function getDragAfterElement(container, y) {
+    const elements = [...container.querySelectorAll("li:not(.dragging)")];
+ 
+    return elements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+ 
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+        } else {
+            return closest;
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+ 
+function updateTaskOrder() {
+    const ids = [...taskList.children].map(li => Number(li.dataset.id));
+    tasks.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
+    saveTasks();
+}
+ 
 renderTasks();
