@@ -8,7 +8,11 @@ import org.springframework.context.ApplicationContext;
 public class SpringRestApiApplication {
 
 	public static void main(String[] args) {
+
+		
 		ApplicationContext context = SpringApplication.run(SpringRestApiApplication.class, args);
+
+
 	}
 
 }
