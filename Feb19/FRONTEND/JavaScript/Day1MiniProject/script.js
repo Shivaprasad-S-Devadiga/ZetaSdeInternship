@@ -39,7 +39,7 @@ function editTask(id) {
     const newText = prompt("Edit task:");
     if (!newText) return;
  
-    const task = tasks.find(t => t.id === id);
+    const task = tasks.find(task => task.id === id);
     task.text = newText;
  
     saveTasks();
@@ -53,7 +53,7 @@ function deleteTask(id) {
 }
  
 function toggleComplete(id) {
-    const task = tasks.find(t => t.id === id);
+    const task = tasks.find(task => task.id === id);
     task.completed = !task.completed;
     saveTasks();
     renderTasks();
@@ -116,10 +116,10 @@ function enableDragDrop() {
         });
     });
  
-    taskList.addEventListener("dragover", e => {
-        e.preventDefault();
+    taskList.addEventListener("dragover", event => {
+        event.preventDefault();
         const dragging = document.querySelector(".dragging");
-        const afterElement = getDragAfterElement(taskList, e.clientY);
+        const afterElement = getDragAfterElement(taskList, event.clientY);
  
         if (afterElement == null) {
             taskList.appendChild(dragging);
@@ -146,7 +146,7 @@ function getDragAfterElement(container, y) {
  
 function updateTaskOrder() {
     const ids = [...taskList.children].map(li => Number(li.dataset.id));
-    tasks.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
+    tasks.sort((task1, task2) => ids.indexOf(task1.id) - ids.indexOf(task2.id));
     saveTasks();
 }
  

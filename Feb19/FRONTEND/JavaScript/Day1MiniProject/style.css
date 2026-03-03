@@ -1,6 +1,12 @@
 body {
+    text-align: center;
     font-family: Arial;
     margin: 40px;
+    font-size: 22px;
+}
+
+h2{
+  font-style: italic;
 }
  
 li {
@@ -8,6 +14,7 @@ li {
     margin: 5px 0;
     border: 1px solid #ccc;
     cursor: grab;
+    width: 300px;
 }
  
 .completed {
@@ -26,7 +33,8 @@ button {
 .controls {
     display: flex;
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    align-content: center;
 }
  
 .filters {

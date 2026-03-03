@@ -1,0 +1,35 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Shiv",
+      "email": "shiv@gmail.com",
+      "gender": "Male",
+      "skills": [
+        "Java",
+        "VueJS"
+      ]
+    },
+    {
+      "id": "90dc",
+      "name": "mani",
+      "email": "123345",
+      "gender": "Male",
+      "skills": [
+        "Java",
+        "Design Pattern",
+        "SpringBoot"
+      ]
+    },
+    {
+      "id": "c42d",
+      "name": "dheeraj",
+      "email": "Deeru@123",
+      "gender": "Male",
+      "skills": [
+        "Java",
+        "SpringBoot"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "users": [
+    {
+      "id": "76f2",
+      "name": "Rajath",
+      "email": "Devadiga@02"
+    },
+    {
+      "id": "e0b0",
+      "name": "mani",
+      "email": "123345"
+    },
+    {
+      "id": "8429",
+      "name": "rohan",
+      "email": "Roahn@123"
+    },
+    {
+      "id": "af12",
+      "name": "",
+      "email": ""
+    },
+    {
+      "id": "5fcd",
+      "name": "Shiv",
+      "email": "Shiva@gmail.com"
+    },
+    {
+      "id": "14f5",
+      "name": "shiv",
+      "email": "Shiv@123",
+      "gender": "Male",
+      "skills": [
+        "Design Pattern"
+      ]
+    },
+    {
+      "id": "40c3",
+      "name": "shiv",
+      "email": "Shiv@123",
+      "gender": "Male",
+      "skills": [
+        "Design Pattern",
+        "VueJS"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Clean Code",
+      "author": "Robert Martin",
+      "available": true,
+      "describe": "test"
+    },
+    {
+      "id": 2,
+      "title": "Effective Java",
+      "author": "Joshua Bloch",
+      "available": false,
+      "describe": "test"
+    },
+    {
+      "title": "t1",
+      "author": "t1",
+      "available": true,
+      "id": 3
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "Clean Code",
+      "author": "Robert Martin",
+      "available": true
+    },
+    {
+      "id": "2",
+      "title": "JS The Good Parts",
+      "author": "Douglas Crockford",
+      "available": true
+    },
+    {
+      "id": "ac34",
+      "title": "RAMAYANA",
+      "author": "VALMIKI",
+      "available": false
+    },
+    {
+      "id": "7294",
+      "title": "mohan",
+      "author": "kumara vyasa",
+      "available": true
+    },
+    {
+      "id": "b1ae",
+      "title": "MahaBharata",
+      "author": "vedavyasa",
+      "available": false
+    }
+  ]
+}
